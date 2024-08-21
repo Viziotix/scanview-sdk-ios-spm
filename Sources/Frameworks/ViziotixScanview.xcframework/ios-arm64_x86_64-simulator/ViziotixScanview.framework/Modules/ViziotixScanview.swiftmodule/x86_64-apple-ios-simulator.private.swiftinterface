@@ -1,0 +1,483 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.10 (swiftlang-5.10.0.13 clang-1500.3.9.4)
+// swift-module-flags: -target x86_64-apple-ios14.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name ViziotixScanview
+import AVFAudio
+import AVFoundation
+import Combine
+import DeveloperToolsSupport
+import Foundation
+import PhenixDecoder
+import Swift
+import SwiftUI
+import UIKit
+@_exported import ViziotixScanview
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+public enum Resolution : Swift.Int, Swift.Codable {
+  case p480
+  case p720
+  case p1080
+  case p1440
+  case p1920
+  case p2160
+  case p2880
+  case p3240
+  case p4320
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public class ScanviewOptions : Foundation.ObservableObject, Swift.Decodable {
+  @Combine.Published @_projectedValueProperty($resolution) public var resolution: ViziotixScanview.Resolution {
+    get
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    set
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    _modify
+  }
+  public var $resolution: Combine.Published<ViziotixScanview.Resolution>.Publisher {
+    get
+    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, macOS 11.0, *)
+    set
+  }
+  @Combine.Published @_projectedValueProperty($zoom) public var zoom: ViziotixScanview.Zoom {
+    get
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    set
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    _modify
+  }
+  public var $zoom: Combine.Published<ViziotixScanview.Zoom>.Publisher {
+    get
+    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, macOS 11.0, *)
+    set
+  }
+  @Combine.Published @_projectedValueProperty($motionTolerance) public var motionTolerance: ViziotixScanview.MotionTolerance {
+    get
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    set
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    _modify
+  }
+  public var $motionTolerance: Combine.Published<ViziotixScanview.MotionTolerance>.Publisher {
+    get
+    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, macOS 11.0, *)
+    set
+  }
+  @Combine.Published @_projectedValueProperty($autoFocusMode) public var autoFocusMode: ViziotixScanview.AutoFocusMode {
+    get
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    set
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    _modify
+  }
+  public var $autoFocusMode: Combine.Published<ViziotixScanview.AutoFocusMode>.Publisher {
+    get
+    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, macOS 11.0, *)
+    set
+  }
+  @Combine.Published @_projectedValueProperty($aimerSize) public var aimerSize: Swift.Int {
+    get
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    set
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    _modify
+  }
+  public var $aimerSize: Combine.Published<Swift.Int>.Publisher {
+    get
+    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, macOS 11.0, *)
+    set
+  }
+  @Combine.Published @_projectedValueProperty($torch) public var torch: Swift.Bool {
+    get
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    set
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    _modify
+  }
+  public var $torch: Combine.Published<Swift.Bool>.Publisher {
+    get
+    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, macOS 11.0, *)
+    set
+  }
+  @Combine.Published @_projectedValueProperty($videoGravity) public var videoGravity: ViziotixScanview.VideoGravity {
+    get
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    set
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    _modify
+  }
+  public var $videoGravity: Combine.Published<ViziotixScanview.VideoGravity>.Publisher {
+    get
+    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, macOS 11.0, *)
+    set
+  }
+  public init(resolution: ViziotixScanview.Resolution = .p720, zoom: ViziotixScanview.Zoom = .zoom_1_0x, motionTolerance: ViziotixScanview.MotionTolerance = .low, autoFocusMode: ViziotixScanview.AutoFocusMode = .standard, aimerSize: Swift.Int = 0, torch: Swift.Bool = false, videoGravity: ViziotixScanview.VideoGravity = .fill, hideViziotixLogo: Swift.Bool = false, hideResultsOverlay: Swift.Bool = false, hideViziotixAimer: Swift.Bool = false)
+  required convenience public init(from decoder: any Swift.Decoder) throws
+  public typealias ObjectWillChangePublisher = Combine.ObservableObjectPublisher
+  @objc deinit
+}
+final public class ScanviewController : Foundation.ObservableObject {
+  @Combine.Published @_projectedValueProperty($scanviewResultsInAimer) final public var scanviewResultsInAimer: ViziotixScanview.ScanviewResults {
+    get
+  }
+  final public var $scanviewResultsInAimer: Combine.Published<ViziotixScanview.ScanviewResults>.Publisher {
+    get
+  }
+  @Combine.Published @_projectedValueProperty($scanviewResultsLive) final public var scanviewResultsLive: ViziotixScanview.ScanviewResults {
+    get
+  }
+  final public var $scanviewResultsLive: Combine.Published<ViziotixScanview.ScanviewResults>.Publisher {
+    get
+  }
+  @Combine.Published @_projectedValueProperty($cameraResolution) final public var cameraResolution: CoreMedia.CMVideoDimensions {
+    get
+  }
+  final public var $cameraResolution: Combine.Published<CoreMedia.CMVideoDimensions>.Publisher {
+    get
+  }
+  @Combine.Published @_projectedValueProperty($hasTorch) final public var hasTorch: Swift.Bool {
+    get
+  }
+  final public var $hasTorch: Combine.Published<Swift.Bool>.Publisher {
+    get
+  }
+  public init(controller: UIKit.UIViewController? = nil, view: UIKit.UIView? = nil, scanviewDelegate: (any ViziotixScanview.ScanviewDelegate)? = nil)
+  @objc deinit
+  public static func initialize(licenseKey: Swift.String, ignoreCache: Swift.Bool) -> ViziotixScanview.Status
+  public static func deinitialize()
+  public static func getLibraryVersion() -> Swift.String
+  public static func getCameras() -> [ViziotixScanview.CameraType]
+  public static func setCamera(_ uniqueId: Swift.String?)
+  final public func createDecoder() -> Swift.Bool
+  final public func destroyDecoder()
+  final public func writeSettingItems(_ settingItems: ViziotixScanview.SettingItems, onError: (ViziotixScanview.SettingTag, Swift.Int, ViziotixScanview.Status) -> Swift.Void)
+  final public func writeIntSetting(_ settingTag: ViziotixScanview.SettingTag, _ value: Swift.Int) -> ViziotixScanview.Status
+  final public func readIntSetting(_ settingTag: ViziotixScanview.SettingTag) -> (status: ViziotixScanview.Status, value: Swift.Int32)
+  final public func startCamera(_ state: Swift.Bool)
+  final public func setDecoderActive(_ state: Swift.Bool)
+  final public func setAimerSize(_ percent: Swift.Int)
+  final public func setResolution(_ resolution: ViziotixScanview.Resolution)
+  final public func setMotionTolerance(_ motionTolerance: ViziotixScanview.MotionTolerance)
+  final public func setTorch(_ torchEnable: Swift.Bool)
+  final public func setZoom(_ zoom: ViziotixScanview.Zoom)
+  final public func playBeep()
+  final public func setAutoFocusMode(_ autoFocusMode: ViziotixScanview.AutoFocusMode)
+  final public func setVideoGravity(_ videoGravity: ViziotixScanview.VideoGravity)
+  final public func hideViziotixLogo(_ hide: Swift.Bool)
+  final public func hideResultsOverlay(_ hide: Swift.Bool)
+  final public func hideViziotixAimer(_ hide: Swift.Bool)
+  final public func getNotificationLicenseError() -> ViziotixScanview.Status
+  final public func resyncLicense() -> ViziotixScanview.Status
+  final public func releaseResources()
+  public typealias ObjectWillChangePublisher = Combine.ObservableObjectPublisher
+}
+@objc public enum ScanviewNotification : Swift.Int {
+  case licenseError
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public let ViziotixGradient: SwiftUI.LinearGradient
+public enum SettingTag : Swift.Int, Swift.Codable {
+  case CODE39_ENABLE
+  case CODE32_ENABLE
+  case CODE39_NANO_SCAN
+  case CODE39_TRANSMIT_START_STOP
+  case CODE39_CHECK
+  case CODE39_TRANSMIT_CHECK
+  case CODE39_FULL_ASCII
+  case EAN13_ENABLE
+  case EAN8_ENABLE
+  case UPCA_ENABLE
+  case UPCE_ENABLE
+  case EAN_UPC_NANO_SCAN
+  case EAN13_ADDON_REQUIRED
+  case UPCA_ADDON_REQUIRED
+  case UPCE_ADDON_REQUIRED
+  case EAN13_ADDON_TYPE
+  case UPCA_ADDON_TYPE
+  case UPCE_ADDON_TYPE
+  case MSI_ENABLE
+  case MSI_NANO_SCAN
+  case MSI_CHECK
+  case MSI_TRANSMIT_CHECK
+  case ITF_ENABLE
+  case ITF_14_ENABLE
+  case ITF_NANO_SCAN
+  case ITF_CHECK
+  case ITF_TRANSMIT_CHECK
+  case CODE128_ENABLE
+  case GS1_128_ENABLE
+  case ISBT128_ENABLE
+  case ISBT128_CONCATENATION
+  case CODE128_NANO_SCAN
+  case CODE128_DAMAGED_START_STOP
+  case GS1_DATABAR_ENABLE
+  case GS1_DATABAR_EX_ENABLE
+  case GS1_DATABAR_LIMITED_ENABLE
+  case CODE93_ENABLE
+  case CODABAR_ENABLE
+  case CODABAR_TRANSMIT_START_STOP
+  case CODABAR_CHECK
+  case CODABAR_TRANSMIT_CHECK
+  case DATAMATRIX_ENABLE
+  case GS1_DATAMATRIX_ENABLE
+  case DATAMATRIX_DAMAGED
+  case QR_CODE_ENABLE
+  case PDF417_ENABLE
+  case AZTEC_ENABLE
+  case MRZ_ENABLE
+  case OPERATING_MULTI_THREAD
+  case OPERATING_N_MULTI_SCALE_ENABLE
+  case OPERATING_N_MULTI_SCALE
+  case OPERATING_N_CODES_EXPECTED_ENABLE
+  case OPERATING_N_CODES_EXPECTED
+  case OPERATING_TIME_OUT_ENABLE
+  case OPERATING_TIME_OUT
+  case OPERATING_CUDA_ENABLE
+  case PROCESSING_1D_HIGH_DENSITY
+  case PROCESSING_1D_DAMAGED
+  case PROCESSING_1D_ORIENTATION
+  case PROCESSING_1D_LOW_CONTRAST
+  case PROCESSING_1D_PERSPECTIVE
+  case PROCESSING_1D_LOW_HEIGHT
+  case PROCESSING_2D_EXTENSIVE_SEARCH
+  case PROCESSING_2D_LOW_CONTRAST
+  case DECODER_BUILD_DATE
+  case DECODER_N_MAX_INSTANCES
+  case DECODER_SCAN_MODE
+  case DECODER_CUDA_CAPABILITIES
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+extension CoreMedia.CMVideoDimensions : Swift.Equatable {
+  public static func == (lhs: CoreMedia.CMVideoDimensions, rhs: CoreMedia.CMVideoDimensions) -> Swift.Bool
+}
+public func printTimed(_ s: Swift.String, terminator: Swift.String = "\n")
+public enum VideoGravity : Swift.Int, Swift.Codable {
+  case fit
+  case fill
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public struct SettingItem : Swift.Codable {
+  public var tag: ViziotixScanview.SettingTag
+  public var value: Swift.Int
+  public init(_ tag: ViziotixScanview.SettingTag, _ value: Swift.Int)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public typealias SettingItems = [ViziotixScanview.SettingItem]
+public enum AutoFocusMode : Swift.Int, Swift.Codable {
+  case standard
+  case autoTriggered
+  case macro
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_Concurrency.MainActor(unsafe) public struct Scanview : SwiftUI.View {
+  @_Concurrency.MainActor(unsafe) public init(defaultScanviewOptions: ViziotixScanview.ScanviewOptions? = nil, showDebugInfo: Swift.Bool = false, decoderAlreadyCreated: Swift.Bool = false, onNotification: ((ViziotixScanview.ScanviewNotification) -> Swift.Void)? = nil, onAppear: (() -> Swift.Void)? = nil)
+  @_Concurrency.MainActor(unsafe) public var body: some SwiftUI.View {
+    get
+  }
+  public typealias Body = @_opaqueReturnTypeOf("$s16ViziotixScanview0B0V4bodyQrvp", 0) __
+}
+@_hasMissingDesignatedInitializers @objc public class ScanviewResult : ObjectiveC.NSObject, Swift.Identifiable {
+  public var id: Foundation.UUID
+  public var data: Swift.String
+  public var length: Swift.Int
+  public var symid: ViziotixScanview.Symid
+  public var format: Swift.Int
+  public var timing: Swift.Int
+  public var corners: [ViziotixScanview.Point]
+  public var screenPoints: [CoreFoundation.CGPoint]
+  public var devicePoints: [CoreFoundation.CGPoint]
+  public var inAimer: Swift.Bool
+  public typealias ID = Foundation.UUID
+  @objc deinit
+}
+public typealias ScanviewResults = [ViziotixScanview.ScanviewResult]
+public enum Symid : Swift.Int32 {
+  case ID_UNKNOWN
+  case ID_DATAMATRIX
+  case ID_CODE39
+  case ID_QRCODE
+  case ID_UPCA
+  case ID_UPCE
+  case ID_EAN13
+  case ID_EAN8
+  case ID_ITF
+  case ID_CODE128
+  case ID_PDF417
+  case ID_GS1_DATABAR
+  case ID_GS1_DATABAR_EX
+  case ID_GS1_DATABAR_LIMITED
+  case ID_AZTEC
+  case ID_GS1_128
+  case ID_GS1_DATAMATRIX
+  case ID_MSI
+  case ID_CODE32
+  case ID_ITF_14
+  case ID_ISBT128
+  case ID_UPCA_ADDON2
+  case ID_UPCA_ADDON5
+  case ID_UPCE_ADDON2
+  case ID_UPCE_ADDON5
+  case ID_EAN13_ADDON2
+  case ID_EAN13_ADDON5
+  case ID_CODE93
+  case ID_CODABAR
+  case ID_OCR_MRZ
+  public func friendlyName() -> Swift.String
+  public init?(rawValue: Swift.Int32)
+  public typealias RawValue = Swift.Int32
+  public var rawValue: Swift.Int32 {
+    get
+  }
+}
+public typealias Point = PhenixDecoder.fnxPoint
+public struct FnxResult {
+  public var data: Swift.String
+  public var length: Swift.Int
+  public var symid: ViziotixScanview.Symid
+  public var format: Swift.Int
+  public var corners: [ViziotixScanview.Point]
+}
+public typealias FnxResults = [ViziotixScanview.FnxResult]
+public enum MotionTolerance : Swift.Int, Swift.Codable {
+  case low
+  case medium
+  case high
+  public init?(from: Swift.String?)
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public struct CameraType {
+  public let uniqueId: Swift.String
+  public let localizedName: Swift.String
+  public let deviceType: AVFoundation.AVCaptureDevice.DeviceType
+  public let position: AVFoundation.AVCaptureDevice.Position
+  public let dimensions: CoreMedia.CMVideoDimensions
+  public let hasTorch: Swift.Bool
+}
+@objc public protocol ScanviewDelegate {
+  @objc optional func onScanviewAppear()
+  @objc optional func onScanviewResultsLive(results: ViziotixScanview.ScanviewResults)
+  @objc optional func onScanviewResultsInAimer(results: ViziotixScanview.ScanviewResults)
+  @objc optional func onScanviewNotification(scanviewNotification: ViziotixScanview.ScanviewNotification)
+}
+public enum Status : Swift.UInt32 {
+  case SUCCESS
+  case INVALID_HANDLE
+  case MEMORY_ALLOCATION_ERROR
+  case UNSUPPORTED
+  case SETTING_TAG_UNKNOWN
+  case SETTING_VALUE_INVALID
+  case IMAGE_FORMAT_NOT_SUPPORTED
+  case IMAGE_SIZE_NOT_SUPPORTED
+  case SETTING_TAG_NOT_LICENSED
+  case INVALID_CONTEXT
+  case LICENSE_ACTIVATION_FAILED
+  case LICENSE_EXPIRED
+  case LICENSE_SUSPENDED
+  case LICENSE_GRACE_PERIOD_OVER
+  case INVALID_FILE_PATH
+  case FILE_PERMISSION
+  case LICENSE_TIME_ERROR
+  case LICENSE_NETWORK_ERROR
+  case LICENSE_REVOKED
+  case LICENSE_INVALID_KEY
+  case LICENSE_INVALID_TYPE
+  case LICENSE_ACTIVATION_LIMIT
+  case LICENSE_ACTIVATION_NOT_FOUND
+  case LICENSE_DEACTIVATION_LIMIT
+  case LICENSE_MACHINE_FINGERPRINT
+  case LICENSE_TIME_MODIFIED
+  case LICENSE_VM_ERROR
+  case LICENSE_CONTAINER_ERROR
+  case LICENSE_SERVER_ERROR
+  case OP_LICENSE_ACTIVATION_FAILED
+  case OP_LICENSE_TIME_ERROR
+  case OP_LICENSE_NETWORK_ERROR
+  case OP_LICENSE_NOT_FOUND
+  case OP_LICENSE_EXPIRED_INET
+  case OP_LICENSE_ACTIVATION_LIMIT
+  case OP_LICENSE_SERVER_ERROR
+  case OP_LICENSE_TIME_MODIFIED
+  case OP_LICENSE_NOT_ACTIVATED
+  case OP_LICENSE_EXPIRED
+  case OP_LICENSE_SUSPENDED
+  case OP_LICENSE_GRACE_PERIOD_OVER
+  case UNKNOWN_ERROR
+  public func friendlyName() -> Swift.String
+  public init?(rawValue: Swift.UInt32)
+  public typealias RawValue = Swift.UInt32
+  public var rawValue: Swift.UInt32 {
+    get
+  }
+}
+public enum Zoom : Swift.Int, Swift.Codable {
+  case zoom_1_0x
+  case zoom_1_5x
+  case zoom_2_0x
+  case zoom_2_5x
+  case zoom_3_0x
+  case zoom_3_5x
+  case zoom_4_0x
+  case zoom_4_5x
+  case zoom_5_0x
+  case zoom_10_0x
+  public var getFloat: CoreFoundation.CGFloat {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+extension ViziotixScanview.Resolution : Swift.Equatable {}
+extension ViziotixScanview.Resolution : Swift.Hashable {}
+extension ViziotixScanview.Resolution : Swift.RawRepresentable {}
+extension ViziotixScanview.ScanviewNotification : Swift.Equatable {}
+extension ViziotixScanview.ScanviewNotification : Swift.Hashable {}
+extension ViziotixScanview.ScanviewNotification : Swift.RawRepresentable {}
+extension ViziotixScanview.SettingTag : Swift.Equatable {}
+extension ViziotixScanview.SettingTag : Swift.Hashable {}
+extension ViziotixScanview.SettingTag : Swift.RawRepresentable {}
+extension ViziotixScanview.VideoGravity : Swift.Equatable {}
+extension ViziotixScanview.VideoGravity : Swift.Hashable {}
+extension ViziotixScanview.VideoGravity : Swift.RawRepresentable {}
+extension ViziotixScanview.AutoFocusMode : Swift.Equatable {}
+extension ViziotixScanview.AutoFocusMode : Swift.Hashable {}
+extension ViziotixScanview.AutoFocusMode : Swift.RawRepresentable {}
+extension ViziotixScanview.Symid : Swift.Equatable {}
+extension ViziotixScanview.Symid : Swift.Hashable {}
+extension ViziotixScanview.Symid : Swift.RawRepresentable {}
+extension ViziotixScanview.MotionTolerance : Swift.Equatable {}
+extension ViziotixScanview.MotionTolerance : Swift.Hashable {}
+extension ViziotixScanview.MotionTolerance : Swift.RawRepresentable {}
+extension ViziotixScanview.Status : Swift.Equatable {}
+extension ViziotixScanview.Status : Swift.Hashable {}
+extension ViziotixScanview.Status : Swift.RawRepresentable {}
+extension ViziotixScanview.Zoom : Swift.Equatable {}
+extension ViziotixScanview.Zoom : Swift.Hashable {}
+extension ViziotixScanview.Zoom : Swift.RawRepresentable {}

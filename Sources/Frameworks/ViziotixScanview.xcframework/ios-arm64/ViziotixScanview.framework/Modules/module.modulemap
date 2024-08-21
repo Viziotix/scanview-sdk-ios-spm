@@ -1,0 +1,11 @@
+framework module ViziotixScanview {
+  umbrella header "ViziotixScanview.h"
+  export *
+
+  module * { export * }
+}
+
+module ViziotixScanview.Swift {
+  header "ViziotixScanview-Swift.h"
+  requires objc
+}

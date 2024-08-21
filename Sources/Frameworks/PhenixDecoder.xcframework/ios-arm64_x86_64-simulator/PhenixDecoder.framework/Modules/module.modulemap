@@ -1,0 +1,7 @@
+framework module PhenixDecoder {
+    umbrella header "PhenixDecoder.h"
+
+    export *
+    module * { export * }
+}
+
